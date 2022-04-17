@@ -26,7 +26,8 @@ pipeline {
 				branch 'master'
 			}			
 			steps {
-				echo "Deploying... ${env.BUILD_ID} on ${env.JENKINS_URL}"
+				//echo "Deploying... ${env.BUILD_ID} on ${env.JENKINS_URL}"
+				echo "Deploying........."
 			}
 		}
 	}
