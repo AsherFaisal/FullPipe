@@ -5,10 +5,22 @@ pipeline {
 		stage('Build'){
 			steps {
 				echo 'Running build...'
-				sh './gradelew build --no daemon'
-				archiveArtifacts artifacts: 'dist/trainSchedule.zip'
+				//#sh './gradelew build --no daemon'
+				//#archiveArtifacts artifacts: 'dist/trainSchedule.zip'
 			}
 		}
+		stage('Build Docker Image'){
+			when{
+				branch 'master'
+			}
+			steps{
+				app = docker.build("asherfaisal/train-schedule")
+				app.inside {
+					sh 'echo $(curl localhost:8080)'
+				}
+			}
+		}
+		
 		stage('DeployToStaging'){
 			when{
 				branch 'master'
