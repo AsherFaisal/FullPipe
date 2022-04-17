@@ -4,18 +4,18 @@ pipeline {
 	stages{
 		stage('Build'){
 			steps {
-				echo 'Building...'
+				echo 'Running build...'
+				sh './gradelew build --no daemon'
+				archiveArtifacts artifacts: 'dist/trainSchedule.zip'
 			}
 		}
-		stage('Test'){
-                        steps {
-                                echo 'Testing...'
-                        }
-		}
-		stage('Deploy'){
-                        steps {
-                                echo 'Deploying...'
-                        }
+		stage('DeployToStaging'){
+			when{
+				branch 'master'
+			}			
+			steps {
+				echo "Deploying... ${env.BUILD_ID} on ${env.JENKINS_URL}"
+			}
 		}
 	}
 }
