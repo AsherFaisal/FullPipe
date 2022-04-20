@@ -13,7 +13,8 @@ pipeline {
 			/* when{
 				branch 'master'
 			} */
-			steps{
+			steps {
+				echo 'In the step now......'
 				script {
                     app = docker.build("asherfaisal/train-schedule")
                     app.inside {
